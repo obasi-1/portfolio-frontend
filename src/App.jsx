@@ -85,7 +85,7 @@ function App() {
                 <div key={project.id} className="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-pointer">
                   <p className="text-blue-600 text-xs font-black uppercase tracking-wider mb-3">{project.tagline}</p>
                   <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">{project.title}</h3>
-                  <p className="text-gray-500 leading-relaxed mb-8">{project.description}</p>
+                  <p className="text-gray-500 leading-relaxed mb-8 whitespace-pre-line">{project.description}</p>
                   <div className="flex items-center text-sm font-bold text-gray-900">
                     Explore Architecture 
                     <svg className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
