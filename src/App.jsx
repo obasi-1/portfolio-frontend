@@ -24,6 +24,7 @@ const TypewriterText = ({ text, delay = 0, speed = 50 }) => {
 
 function App() {
   const [projects, setProjects] = useState([])
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState('home')
   const [selectedCert, setSelectedCert] = useState(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -111,8 +112,14 @@ function App() {
   useEffect(() => {
     fetch('https://portfolio-backend-dvyu.onrender.com/api/projects/')
       .then(response => response.json())
-      .then(data => setProjects(data))
-      .catch(error => console.error('Error fetching data:', error))
+      .then(data => {
+        setProjects(data);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+      })
   }, [])
 
   // Helper function to safely render tech stack arrays
@@ -366,9 +373,16 @@ function App() {
               <p className="text-gray-500 mt-2 text-sm md:text-base">Architecture built to stay up, not just to demo.</p>
             </div>
             
-            {projects.length === 0 ? (
+
+            {isLoading ? (
+              <div className="bg-white dark:bg-[#111] border border-gray-200 dark:border-gray-800 rounded-3xl p-16 flex flex-col items-center justify-center text-center shadow-sm dark:shadow-none min-h-[300px]">
+                <div className="w-10 h-10 border-4 border-gray-200 dark:border-gray-800 border-t-blue-600 dark:border-t-blue-500 rounded-full animate-spin mb-4"></div>
+                <p className="text-gray-900 dark:text-white font-bold mb-2">Connecting to Backend Servers...</p>
+                <p className="text-gray-500 text-sm">Waking up the Render database instance.</p>
+              </div>
+            ) : projects.length === 0 ? (
               <div className="bg-white dark:bg-[#111] border border-dashed border-gray-300 dark:border-gray-800 rounded-2xl p-12 text-center">
-                <p className="text-gray-500">Live Render database is currently empty.</p>
+                <p className="text-gray-500">Live database is currently empty.</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
